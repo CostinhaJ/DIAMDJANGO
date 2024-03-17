@@ -1,0 +1,8 @@
+<h1>Criar Questão</h1>
+
+<form action="{% url 'votacao:criarquestao' %}" method="post">
+  {% csrf_token %}
+  <label for="novaquestao">Nova Questão:</label>
+  <input type="textarea" name="novaquestao" id="novaquestao" />
+  <input type="submit" value="Criar Questão" />
+</form>

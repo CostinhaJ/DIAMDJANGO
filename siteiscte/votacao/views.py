@@ -2,12 +2,12 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-
+from django.utils import timezone
 from .models import Questao, Opcao
 from django.http import Http404
 
 def index(request):
-    latest_question_list =Questao.objects.order_by('-pub_data')[:5]
+    latest_question_list = Questao.objects.order_by('-pub_data')[:5]
     template = loader.get_template('votacao/index.html')
     context = { 'latest_question_list': latest_question_list,}
     return HttpResponse(template.render(context, request))
@@ -16,7 +16,7 @@ def detalhe(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     return render(request, 'votacao/detalhe.html',{'questao': questao})
 
-def resultados(request, questao_id):
+def resultados(questao_id):
     response = "Estes sao os resultados da questao %s."
     return HttpResponse(response % questao_id)
 
@@ -40,3 +40,24 @@ def voto(request, questao_id):
 def resultados(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id) 
     return render(request,'votacao/resultados.html',{'questao': questao})
+
+
+def abrircriarquestao(request):
+    return render(request, 'votacao/criarquestao.html')
+
+def criarquestao(request):
+    try: 
+        template = loader.get_template('votacao/index.html')
+        if(len(template) == 0):
+            return render(request, 'votacao/criarquestao.html', { 'error_message': "Pergunta Inválida", })
+        else:    
+            questao = request.POST['novaopcao']
+            novaquestao = questao.questao_texto
+            print(novaquestao)
+            q = Questao(questao_texto= novaquestao, pub_data=timezone.now())
+            q.save()
+    except (KeyError, None):
+        return render(request, 'votacao/criarquestao.html', { 'error_message': "Pergunta Inválida", })
+    
+    return render(request, 'votacao/index.html')
+   
