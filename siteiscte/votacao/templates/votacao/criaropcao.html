@@ -1,6 +1,6 @@
-<h1>Criar Questão</h1>
+<h1>Criar Opção</h1>
 
-<form action="{% url 'votacao:criaropcao' %}" method="post">
+<form action="{% url 'votacao:criaropcao' questao.id %}" method="post">
   {% csrf_token %}
   <label for="novaopcao">Nova Opção:</label>
   <input

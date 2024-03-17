@@ -57,12 +57,13 @@ def criarquestao(request):
         q.save()
         return HttpResponseRedirect(reverse('votacao:index'))
     
-#parei aqui
-def criar(request, questao_id):
+
+def abrircriaropcao(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id) 
-    return render(request,'votacao/${questão_id}/criaropcao.html', {'questao': questao})
+    return render(request, 'votacao/criaropcao.html',{'questao': questao})
     
 def criaropcao(request, questao_id):
+    x=1
     try: 
         opcao_texto_nova = request.POST['novaopcao'] 
     except (KeyError, None):
@@ -70,8 +71,7 @@ def criaropcao(request, questao_id):
     if(len(opcao_texto_nova) == 0):
         return render(request, 'votacao/questao_id/criaropcao.html', { 'error_message': "Pergunta Inválida", })
     else:    
-        o = Opcao(questao=questao_id, opcao_texto=opcao_texto_nova, votos=0) 
+        questao = get_object_or_404(Questao, pk=questao_id) 
+        o = Opcao(questao=questao, opcao_texto=opcao_texto_nova, votos=0) 
         o.save()
         return HttpResponseRedirect(reverse('votacao:index'))
-
-#HELP ME

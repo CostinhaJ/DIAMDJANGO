@@ -20,5 +20,5 @@ urlpatterns = [
 
     path("<int:questao_id>/criaropcao", views.criaropcao, name='criaropcao'),
 
-    path("<int:questao_id>/criar", views.criar, name='criar'),
+    path("<int:questao_id>/abrircriaropcao", views.abrircriaropcao, name='abrircriaropcao'),
 ]

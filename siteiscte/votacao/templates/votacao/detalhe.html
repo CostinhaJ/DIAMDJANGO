@@ -12,7 +12,8 @@
   />
   <label for="opcao{{ forloop.counter }}"> {{ opcao.opcao_texto }} </label>
   <br />
+  <br />
   {% endfor %}
   <input type="submit" value="Voto" />
 </form>
-<a href="{% url 'votacao:criar' questao.id %}">Adicionar Opção</a>
+<a href="{% url 'votacao:abrircriaropcao' questao.id %}">Adicionar Opção</a>
