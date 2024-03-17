@@ -6,12 +6,11 @@
   "configurations": [
     {
       "name": "Python Debugger: Django",
-      "type": "debugpy",
+      "type": "python",
       "request": "launch",
-      "program": "${workspaceFolder}\\manage.py",
-      "args": ["runserver", "9000"],
+      "program": "${workspaceFolder}\\siteiscte\\manage.py",
+      "args": ["runserver", "9000" ],
       "django": true,
-      "autoStartBrowser": false
     }
   ]
 }

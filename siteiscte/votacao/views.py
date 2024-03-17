@@ -47,17 +47,31 @@ def abrircriarquestao(request):
 
 def criarquestao(request):
     try: 
-        template = loader.get_template('votacao/index.html')
-        if(len(template) == 0):
-            return render(request, 'votacao/criarquestao.html', { 'error_message': "Pergunta Inválida", })
-        else:    
-            questao = request.POST['novaopcao']
-            novaquestao = questao.questao_texto
-            print(novaquestao)
-            q = Questao(questao_texto= novaquestao, pub_data=timezone.now())
-            q.save()
+        questao_texto_nova = request.POST['novaquestao'] 
     except (KeyError, None):
+        return render(request, 'votacao/criarquestao.html', {'error_message': "Tente Novamente", })
+    if(len(questao_texto_nova) == 0):
         return render(request, 'votacao/criarquestao.html', { 'error_message': "Pergunta Inválida", })
+    else:    
+        q = Questao(questao_texto = questao_texto_nova, pub_data=timezone.now())
+        q.save()
+        return HttpResponseRedirect(reverse('votacao:index'))
     
-    return render(request, 'votacao/index.html')
-   
+#parei aqui
+def criar(request, questao_id):
+    questao = get_object_or_404(Questao, pk=questao_id) 
+    return render(request,'votacao/${questão_id}/criaropcao.html', {'questao': questao})
+    
+def criaropcao(request, questao_id):
+    try: 
+        opcao_texto_nova = request.POST['novaopcao'] 
+    except (KeyError, None):
+        return render(request, 'votacao/questao_id/criaropcao.html', {'error_message': "Tente Novamente", })
+    if(len(opcao_texto_nova) == 0):
+        return render(request, 'votacao/questao_id/criaropcao.html', { 'error_message': "Pergunta Inválida", })
+    else:    
+        o = Opcao(questao=questao_id, opcao_texto=opcao_texto_nova, votos=0) 
+        o.save()
+        return HttpResponseRedirect(reverse('votacao:index'))
+
+#HELP ME

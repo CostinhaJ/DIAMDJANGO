@@ -14,8 +14,11 @@ urlpatterns = [
     # ex: votacao/5/voto
     path('<int:questao_id>/voto', views.voto, name='voto'),
     # ex: votacao/criarquestao
-    path("criarquestao", views.abrircriarquestao, name='abrircriarquestao'),
+    path("abrircriarquestao", views.abrircriarquestao, name='abrircriarquestao'),
     # ex: votacao/criarquestao
     path("criarquestao", views.criarquestao, name='criarquestao'),
-    #path("index?", views.criarquestao, name='criarquestao'),
-    ]
+
+    path("<int:questao_id>/criaropcao", views.criaropcao, name='criaropcao'),
+
+    path("<int:questao_id>/criar", views.criar, name='criar'),
+]
