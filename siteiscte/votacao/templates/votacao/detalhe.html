@@ -1,7 +1,7 @@
 <h1>{{ questao.questao_texto }}</h1>
 {% if error_message %}
 <p><strong>{{ error_message }}</strong></p>
-{% endif %}
+{% endif %} {% if questao.opcao_set.all %}
 <form action="{% url 'votacao:voto' questao.id %}" method="post">
   {% csrf_token %} {% for opcao in questao.opcao_set.all %}
   <input
@@ -13,7 +13,23 @@
   <label for="opcao{{ forloop.counter }}"> {{ opcao.opcao_texto }} </label>
   <br />
   <br />
+
   {% endfor %}
   <input type="submit" value="Voto" />
+  <input type="submit" value="Apagar" />
+  <input type="reset" />
 </form>
 <a href="{% url 'votacao:abrircriaropcao' questao.id %}">Adicionar Opção</a>
+<br />
+<br />
+<button>
+  <a href="{% url 'votacao:apagarquestao' questao.id %}">Apagar a Questão</a>
+</button>
+{% else %}
+<a href="{% url 'votacao:abrircriaropcao' questao.id %}">Adicionar Opção</a>
+<br />
+<br />
+<button>
+  <a href="{% url 'votacao:apagarquestao' questao.id %}">Apagar a Questão</a>
+</button>
+{% endif %}

@@ -18,7 +18,10 @@ urlpatterns = [
     # ex: votacao/criarquestao
     path("criarquestao", views.criarquestao, name='criarquestao'),
 
+    path("<int:questao_id>/apacaropcao", views.apagarquestao, name='apagarquestao'),
+
     path("<int:questao_id>/criaropcao", views.criaropcao, name='criaropcao'),
 
     path("<int:questao_id>/abrircriaropcao", views.abrircriaropcao, name='abrircriaropcao'),
+
 ]
