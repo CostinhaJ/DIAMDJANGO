@@ -21,9 +21,7 @@ def resultados(questao_id):
     return HttpResponse(response % questao_id)
 
 def voto(request, questao_id):
- value = request.POST.get('submit')
- questao = get_object_or_404(Questao, pk=questao_id)
- if(request.POST.get('submit') == 'Voto'):
+    questao = get_object_or_404(Questao, pk=questao_id)
     try: 
         opcao_seleccionada = questao.opcao_set.get(pk=request.POST['opcao'])  
     except (KeyError, Opcao.DoesNotExist):
@@ -32,67 +30,57 @@ def voto(request, questao_id):
     else:
         opcao_seleccionada.votos += 1
         opcao_seleccionada.save()
-        # Retorne sempre HttpResponseRedirect depois de
+    # Retorne sempre HttpResponseRedirect depois de
         # tratar os dados POST de um form
         # pois isso impede os dados de serem tratados
         # repetidamente se o utilizador
         # voltar para a página web anterior.
-        return HttpResponseRedirect(reverse('votacao:resultados', args=(questao.id,)))
- else:
-    try: 
-        opcao_seleccionada = questao.opcao_set.get(pk=request.POST['opcao'])  
-    except (KeyError, Opcao.DoesNotExist):
-    # Apresenta de novo o form para votar
-        return render(request, 'votacao/detalhe.html', { 'questao': questao, 'error_message': "Não escolheu uma opção", })
-    else:
-        opcao_seleccionada.delete()
-        # Retorne sempre HttpResponseRedirect depois de
-        # tratar os dados POST de um form
-        # pois isso impede os dados de serem tratados
-        # repetidamente se o utilizador
-        # voltar para a página web anterior.
-        return HttpResponseRedirect(reverse('votacao:detalhe', args=(questao.id,)))
+        return render(request, 'votacao/resultados.html',{'questao': questao})
 
 def resultados(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id) 
     return HttpResponseRedirect(reverse('votacao:index'))
 
-
-def abrircriarquestao(request):
-    return render(request, 'votacao/criarquestao.html')
-
 def criarquestao(request):
-    try: 
-        questao_texto_nova = request.POST['novaquestao'] 
-    except (KeyError, None):
-        return render(request, 'votacao/criarquestao.html', {'error_message': "Tente Novamente", })
-    if(len(questao_texto_nova) == 0):
-        return render(request, 'votacao/criarquestao.html', { 'error_message': "Pergunta Inválida", })
-    else:    
-        q = Questao(questao_texto = questao_texto_nova, pub_data=timezone.now())
-        q.save()
-        return HttpResponseRedirect(reverse('votacao:index'))
+    if request.method == 'POST':
+        try: 
+            questao_texto_nova = request.POST['novaquestao'] 
+        except (KeyError, None):
+            return render(request, 'votacao/criarquestao.html', {'error_message': "Tente Novamente", })
+        if(len(questao_texto_nova) == 0):
+            return render(request, 'votacao/criarquestao.html', { 'error_message': "Pergunta Inválida", })
+        else:    
+            q = Questao(questao_texto = questao_texto_nova, pub_data=timezone.now())
+            q.save()
+            return HttpResponseRedirect(reverse('votacao:index'))
+    else:
+        return render(request, 'votacao/criarquestao.html')
     
 def apagarquestao(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id) 
     questao.delete()
 
     return HttpResponseRedirect(reverse('votacao:index'))   
-    
 
-def abrircriaropcao(request, questao_id):
-    questao = get_object_or_404(Questao, pk=questao_id) 
-    return render(request, 'votacao/criaropcao.html',{'questao': questao})
-    
 def criaropcao(request, questao_id):
-    try: 
-        opcao_texto_nova = request.POST['novaopcao'] 
-    except (KeyError, None):
-        return render(request, 'votacao/questao_id/criaropcao.html', {'error_message': "Tente Novamente", })
-    if(len(opcao_texto_nova) == 0):
-        return render(request, 'votacao/questao_id/criaropcao.html', { 'error_message': "Pergunta Inválida", })
-    else:    
+    if request.method == 'POST':
+        try: 
+            opcao_texto_nova = request.POST['novaopcao'] 
+        except (KeyError, None):
+            return render(request, 'votacao/questao_id/criaropcao.html', {'error_message': "Tente Novamente", })
+        if(len(opcao_texto_nova) == 0):
+            return render(request, 'votacao/questao_id/criaropcao.html', { 'error_message': "Pergunta Inválida", })
+        else:    
+            questao = get_object_or_404(Questao, pk=questao_id) 
+            o = Opcao(questao=questao, opcao_texto=opcao_texto_nova, votos=0) 
+            o.save()
+            return HttpResponseRedirect(reverse('votacao:index'))
+    else:
         questao = get_object_or_404(Questao, pk=questao_id) 
-        o = Opcao(questao=questao, opcao_texto=opcao_texto_nova, votos=0) 
-        o.save()
-        return HttpResponseRedirect(reverse('votacao:index'))
+        return render(request, 'votacao/criaropcao.html',{'questao': questao})
+    
+def apagaropcao(request, questao_id):
+    questao = get_object_or_404(Questao, pk=questao_id)
+    opcao = questao.opcao_set.get(pk=request.POST['opcao'])  
+    opcao.delete()
+    return HttpResponseRedirect(reverse('votacao:index'))   

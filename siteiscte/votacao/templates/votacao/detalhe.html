@@ -16,17 +16,17 @@
 
   {% endfor %}
   <input type="submit" value="Voto" />
-  <input type="submit" value="Apagar" />
+  <input type="submit" value="Apagar" formaction="{% url 'votacao:apagaropcao' questao.id %}"/>
   <input type="reset" />
 </form>
-<a href="{% url 'votacao:abrircriaropcao' questao.id %}">Adicionar Opção</a>
+<a href="{% url 'votacao:criaropcao' questao.id %}">Adicionar Opção</a>
 <br />
 <br />
 <button>
   <a href="{% url 'votacao:apagarquestao' questao.id %}">Apagar a Questão</a>
 </button>
 {% else %}
-<a href="{% url 'votacao:abrircriaropcao' questao.id %}">Adicionar Opção</a>
+<a href="{% url 'votacao:criaropcao' questao.id %}">Adicionar Opção</a>
 <br />
 <br />
 <button>
