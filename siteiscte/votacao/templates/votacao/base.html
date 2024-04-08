@@ -9,7 +9,7 @@
     <title>SiteIscte</title>
 </head>
 <body>
-      <header>       
+     <header>       
         <link rel="stylesheet" type="text/css" href="style.css">
        <nav class="topnav">
           <ul>
@@ -28,24 +28,28 @@
           </ul>
         </nav>
     </header>
+    
+    {% block main %}
     <main>
-        <h1>Informação pessoal</h1>
+      <h1>Criar Opção</h1>
 
-        Username: {{ user.username }} <br>
-        Email: {{ user.email }} <br>
-        Curso: {{ curso }} <br>
-
-        <a href="{% url 'votacao:index' %}">
-            Voltar
-        </a>
-        <br>
-        <a href="{% url 'votacao:logoutiscte' %}">
-            Logout
-        </a>
-        
-        <a href="">Trocar Password</a>
-        
+      <form action="{% url 'votacao:criaropcao' questao.id %}" method="post">
+        {% csrf_token %}
+        <label for="novaopcao">Nova Opção:</label>
+        <input
+          type="text"
+          name="novaopcao"
+          id="novaopcao"
+          placeholder="Isira aqui a sua opção..."
+          required
+        />
+        <br />
+        <br />
+        <input type="submit" value="Criar Opção" />
+      </form>
     </main>
+    {% endblock %}
+
     <footer>
       <section>
           <h3>Copyright © 2024 all rights reserved </h3>
@@ -62,3 +66,5 @@
   </footer>
 </body>
 </html>
+
+
