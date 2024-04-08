@@ -1,0 +1,41 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'votacao/styles.css' %}">
+    <title>SiteIscte</title>
+</head>
+<body>
+     <header>       
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <nav class="topnav">
+          <a href="https://www.iscte-iul.pt/">
+            <img src="{% static 'votacao/images/logoiscte.png' %}" alt="logo iscte" class="logo" />
+          </a>
+        </nav>
+    </header>
+    <main class="welcome">
+        <h1>Bem Vindo!</h1>
+        <button class="login"><a href="{% url 'votacao:userlogin' %}">Login</a></button>
+        <button class="register"><a href="{% url 'votacao:register' %}">Register</a></button>
+    </main>
+    <footer>
+      <section>
+          <h3>Copyright © 2024 all rights reserved </h3>
+          <p>Tiago Varandas &nbsp; João Costa &nbsp; Manuel Cunha</p> 
+      </section>
+      <section>        
+          <p>Iscte -Instituto Universitario de Lisboa</p>
+          <p><address>Avenida das Forças Armadas, 1649-026 Lisboa</address> </p>
+      </section>
+      <section>
+          <p> TEL +351512903000</p>
+          <p>Email:&nbsp<a href="mailto:geral@iscte.ot"><strong>geral@iscte.pt</strong></a></p>
+      </section> 
+  </footer>
+</body>
+</html>

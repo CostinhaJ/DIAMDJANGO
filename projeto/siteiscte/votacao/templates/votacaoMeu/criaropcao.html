@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'votacao/styles.css' %}">
+    <title>SiteIscte</title>
+</head>
+<body>
+     <header>       
+        <link rel="stylesheet" type="text/css" href="style.css">
+       <nav class="topnav">
+          <ul>
+              <li>
+                  <img src="{% static 'votacao/images/logoiscte.png' %}" alt="logo iscte" class="logo" />
+              </li>
+              <li class="centered">
+                  nome do utilizador
+              </li>
+              <li class="right">
+                  <a href="{% url 'votacao:userdetails' %}">User Account</a>
+              </li>
+              <li class="right">
+                  <a href="{% url 'votacao:logoutiscte' %}">Logout</a>
+              </li>
+          </ul>
+        </nav>
+    </header>
+    <main>
+      <h1>Criar Opção</h1>
+
+      <form action="{% url 'votacao:criaropcao' questao.id %}" method="post">
+        {% csrf_token %}
+        <label for="novaopcao">Nova Opção:</label>
+        <input
+          type="text"
+          name="novaopcao"
+          id="novaopcao"
+          placeholder="Isira aqui a sua opção..."
+          required
+        />
+        <br />
+        <br />
+        <input type="submit" value="Criar Opção" />
+      </form>
+    </main>
+    <footer>
+      <section>
+          <h3>Copyright © 2024 all rights reserved </h3>
+          <p>Tiago Varandas &nbsp; João Costa &nbsp; Manuel Cunha</p> 
+      </section>
+      <section>        
+          <p>Iscte -Instituto Universitario de Lisboa</p>
+          <p><address>Avenida das Forças Armadas, 1649-026 Lisboa</address> </p>
+      </section>
+      <section>
+          <p> TEL +351512903000</p>
+          <p>Email:&nbsp<a href="mailto:geral@iscte.ot"><strong>geral@iscte.pt</strong></a></p>
+      </section> 
+  </footer>
+</body>
+</html>
+
+

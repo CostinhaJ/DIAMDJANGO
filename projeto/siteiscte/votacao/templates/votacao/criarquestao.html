@@ -1,6 +1,14 @@
-<form action="{% url 'votacao:criarquestao2' %}" method="post">
-    {% csrf_token %}
-    <label for="textonovaquestao">Texto da nova Questão:</label>
-    <input type="text" id="textonovaquestao" name="textonovaquestao"><br>
-    <input type="submit" value="Gravar nova Questão">
-</form>
+{% extends "votacao/base.html" %}
+
+{% block title %}
+    Criar Opcao
+{% endblock %}
+
+{% block main %}
+    <form action="{% url 'votacao:criarquestao2' %}" method="post">
+        {% csrf_token %}
+        <label for="textonovaquestao">Texto da nova Questão:</label>
+        <input type="text" id="textonovaquestao" name="textonovaquestao"><br>
+        <input type="submit" value="Gravar nova Questão">
+    </form>
+{% endblock %}
