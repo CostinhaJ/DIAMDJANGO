@@ -1,0 +1,8 @@
+<h1>{{ questao.questao_texto }}</h1>
+
+<form action="{% url 'votacao:criaropcao2' questao.id %}" method="post">
+    {% csrf_token %}
+    <label for="textonovaopcao">Texto da nova Opção:</label>
+    <input type="text" id="textonovaopcao" name="textonovaopcao"><br>
+    <input type="submit" value="Gravar nova Opção">
+</form>

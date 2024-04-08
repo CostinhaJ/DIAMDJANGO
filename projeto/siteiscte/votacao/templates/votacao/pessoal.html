@@ -1,0 +1,14 @@
+<h1>Informação pessoal</h1>
+
+Username: {{ user.username }} <br>
+Email: {{ user.email }} <br>
+Curso: {{ user.aluno.curso }} <br>
+Grupo: {{ user.aluno.grupo }} <br>
+
+<a href="{% url 'votacao:index' %}">
+    Voltar
+</a>
+<br>
+<a href="{% url 'votacao:logoutiscte' %}">
+    Logout
+</a>

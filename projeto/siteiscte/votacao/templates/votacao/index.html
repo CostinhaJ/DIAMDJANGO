@@ -1,0 +1,30 @@
+{% if user != "anonimo" %}
+    <a href="{% url 'votacao:pessoal' %}">
+        {{ user.username }}
+    </a> <br>
+    votos: {{ user.aluno.votosFeitos }}
+{% else %}
+    <a href="{% url 'votacao:loginiscte' %}">
+        Login
+    </a>
+{% endif %}
+
+<h1>Questões:</h1>
+
+{% if latest_question_list %}
+    <ul>
+        {% for questao in latest_question_list %}
+            <li>
+                <a href="{% url 'votacao:detalhe' questao.id %}">
+                    {{ questao.questao_texto }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'votacao:criarquestao' %}">
+        Criar nova Questão
+    </a>
+
+{% else %}
+    <p>Nao ha questoes disponiveis.</p>
+{% endif %}
