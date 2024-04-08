@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,35 +10,18 @@
     <title>SiteIscte</title>
 </head>
 <body>
-      <header>       
+     <header>       
         <link rel="stylesheet" type="text/css" href="style.css">
-       <nav class="topnav">
-          <ul>
-              <li>
-                  <img src="{% static 'logoiscte.png' %}" alt="logo iscte" class="logo" />
-              </li>
-              <li class="centered">
-                  nome do utilizador
-              </li>
-              <li class="right">
-                  <a href="{% url 'votacao:userdetails' %}">User Account</a>
-              </li>
-              <li class="right">
-                  <a href="{% url 'votacao:logoutiscte' %}">Logout</a>
-              </li>
-          </ul>
+        <nav class="topnav">
+          <a href="https://www.iscte-iul.pt/">
+            <img src="{% static 'logoiscte.png' %}" alt="logo iscte" class="logo" />
+          </a>
         </nav>
     </header>
-    <main>
-      <h1>{{ questao.questao_texto }}</h1>
-      <ul>
-        {% for opcao in questao.opcao_set.all %}
-        <li>
-          {{ opcao.opcao_texto }} -- {{ opcao.votos }} voto{{ opcao.votos|pluralize }}
-        </li>
-        {% endfor %}
-      </ul>
-      <a href="{% url 'votacao:detalhe' questao.id %}">Votar novamente?</a>
+    <main class="welcome">
+        <h1>Bem Vindo!</h1>
+        <button class="login"><a href="{% url 'votacao:userlogin' %}">Login</a></button>
+        <button class="register"><a href="{% url 'votacao:register' %}">Register</a></button>
     </main>
     <footer>
       <section>

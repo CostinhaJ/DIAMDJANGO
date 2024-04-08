@@ -6,7 +6,18 @@ from . import views
 app_name = 'votacao'
 urlpatterns = [
     # ex: votacao/
-    path("", views.index, name='index'),
+    path("", views.welcome, name='welcome'),
+
+    path("userlogin", views.userlogin, name='userlogin'),
+
+    path("logoutiscte", views.logoutiscte, name='logoutiscte'),
+
+    path("register", views.register, name='register'),
+
+    path("userdetails", views.userdetails, name='userdetails'),
+
+    path("index", views.index, name='index'),
+
     # ex: votacao/1
     path('<int:questao_id>', views.detalhe, name='detalhe'),
     # ex: votacao/3/resultados

@@ -3,14 +3,56 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from django.utils import timezone
-from .models import Questao, Opcao
-from django.http import Http404
+from .models import Aluno, Questao, Opcao
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+
+def welcome(request):
+    return render(request, 'votacao/welcome.html')
+
+def userlogin(request):
+    if request.method == 'POST':
+        mail = request.POST['email']
+        passwordP = request.POST['password']
+        user = authenticate( email = mail, password=passwordP )
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('votacao:index', request))
+        else:
+            return render(request, 'votacao/index.html', {'error_message': "Dados inválidos", })
+    else:
+        return render(request, 'votacao/login.html', { 'error_message': "Username ou Password inválido", })
+    
+
+def logoutiscte(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('votacao:welcome'))
+
+def register(request):
+    if request.method == 'POST':
+        usernameP = request.POST['username']
+        emailP = request.POST['email']
+        passwordP = request.POST['password']
+        cursoP = request.POST['curso']
+        novouser = User.objects.create_user(usernameP, emailP, passwordP) 
+        novouser2 = Aluno(user = novouser, curso = cursoP)
+        novouser2.save()
+        return HttpResponseRedirect(reverse('votacao:userlogin'))
+    else:
+        return render(request, 'votacao/register.html')
 
 def index(request):
     latest_question_list = Questao.objects.order_by('-pub_data')[:5]
     template = loader.get_template('votacao/index.html')
-    context = { 'latest_question_list': latest_question_list,}
+    context = { 'latest_question_list': latest_question_list, 'user': request.user }
     return HttpResponse(template.render(context, request))
+
+def userdetails(request):
+    context = {
+        'user': request.user,
+        'curso': request.user.aluno.curso,
+    }
+    return HttpResponseRedirect(reverse('votacao:index', context))
 
 def detalhe(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
@@ -84,3 +126,4 @@ def apagaropcao(request, questao_id):
     opcao = questao.opcao_set.get(pk=request.POST['opcao'])  
     opcao.delete()
     return HttpResponseRedirect(reverse('votacao:index'))   
+
