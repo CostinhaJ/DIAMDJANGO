@@ -5,17 +5,6 @@
 {% endblock %}
 
 {% block main %}
-    {% if user != "anonimo" %}
-        <a href="{% url 'votacao:pessoal' %}">
-            {{ user.username }}
-        </a> <br>
-        votos: {{ user.aluno.votosFeitos }}
-    {% else %}
-        <a href="{% url 'votacao:loginiscte' %}">
-            Login
-        </a>
-    {% endif %}
-
     <h1>Questões:</h1>
 
     {% if latest_question_list %}
@@ -28,12 +17,9 @@
                 </li>
             {% endfor %}
         </ul>
-        <a href="{% url 'votacao:criarquestao' %}">
-            Criar nova Questão
-        </a>
-
     {% else %}
         <p>Nao ha questoes disponiveis.</p>
     {% endif %}
+    <a href="{% url 'votacao:criarquestao' %}">Criar nova Questão</a>
 {% endblock %}
 

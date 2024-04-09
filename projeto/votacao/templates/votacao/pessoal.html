@@ -11,6 +11,7 @@
     Email: {{ user.email }} <br>
     Curso: {{ user.aluno.curso }} <br>
     Grupo: {{ user.aluno.grupo }} <br>
+    votos: {{ user.aluno.votosFeitos }}
 
     <a href="{% url 'votacao:index' %}">
         Voltar
