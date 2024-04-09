@@ -1,0 +1,17 @@
+{% extends "votacao/base.html" %}
+
+{% block title %}
+    Welcome
+{% endblock %}
+
+{% block main %}
+  <section class="welcome">
+      <h1>Bem Vindo!</h1>
+      <button class="login"><a href="{% url 'votacao:loginiscte' %}">Login</a></button>
+      <button class="register"><a href="{% url 'votacao:registar' %}">Register</a></button>
+  </section>
+{% endblock %}
+
+
+    
+    

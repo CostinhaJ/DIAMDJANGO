@@ -21,10 +21,10 @@
                   <img src="{% static 'votacao/images/logoiscte.png' %}" alt="logo iscte" class="logo" />
               </li>
               <li class="centered">
-                  nome do utilizador
+                  {{ user.username }}
               </li>
               <li class="right">
-                  <a href="{% url 'votacao:userdetails' %}">User Account</a>
+                  <a href="{% url 'votacao:pessoal' %}">User Account</a>
               </li>
               <li class="right">
                   <a href="{% url 'votacao:logoutiscte' %}">Logout</a>

@@ -10,6 +10,9 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
+def welcome(request):
+    return render(request, 'votacao/welcome.html')
+
 def index(request):
     latest_question_list = Questao.objects.order_by('-pub_data')[:5]
     if request.user.is_authenticated:
@@ -127,4 +130,4 @@ from django.contrib.auth import logout
 
 def logoutiscte(request):
     logout(request)
-    return HttpResponseRedirect(reverse('votacao:index'))
+    return HttpResponseRedirect(reverse('votacao:welcome'))
