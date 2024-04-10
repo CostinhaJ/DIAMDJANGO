@@ -1,27 +1,26 @@
 {% extends "votacao/base.html" %}
 
 {% block title %}
-    Criar Opcao
+    Login
 {% endblock %}
 
 {% block main %}
-    <h1>Login</h1>
-
     {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
-
-    <form action="{% url 'votacao:loginiscte' %}" method="post">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required> <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required> <br>
-        <input type="submit" value="Login" />
-    </form>
-
-    <a href="{% url 'votacao:registar' %}">
-        <button>Registar</button>
-    </a>
+    <section>
+        <h1>Bem Vindo novamente!</h1>
+        <form action="{% url 'votacao:loginiscte' %}" method="post">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required> <br>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required> <br>
+            <button><input class="submitbtn" type="submit" value="Entrar" /></button>
+            <a href="{% url 'votacao:registar' %}">
+            <button>Registar</button>
+        </a>
+        </form>
+    </section>
 {% endblock %}
 

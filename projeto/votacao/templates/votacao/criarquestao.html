@@ -5,10 +5,14 @@
 {% endblock %}
 
 {% block main %}
+<section>
+   <h1>Criar Questão</h1>
     <form action="{% url 'votacao:criarquestao' %}" method="post">
         {% csrf_token %}
         <label for="textonovaquestao">Texto da nova Questão:</label>
-        <input type="text" id="textonovaquestao" name="textonovaquestao"><br>
-        <input type="submit" value="Gravar nova Questão">
-    </form>
+        <input type="text" id="textonovaquestao" name="textonovaquestao"><br> <br>
+        <button><input type="submit" value="Gravar nova Questão" class="submitbtn"></button>
+    </form> 
+</section>
+    
 {% endblock %}

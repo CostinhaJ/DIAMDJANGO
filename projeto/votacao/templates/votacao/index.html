@@ -1,31 +1,33 @@
 {% extends "votacao/base.html" %}
 
 {% block title %}
-    Criar Opcao
+    home
 {% endblock %}
 
 {% block main %}
     {% if user.is_authenticated %}
         <h1>Questões:</h1>
         {% if latest_question_list %}
-            <ul>
-                {% for questao in latest_question_list %}
-                    <a style="text-decoration: none;" href="{% url 'votacao:detalhe' questao.id %}">
-                        {{ questao.questao_texto }}
-                    </a>
-                    <br>
-                {% endfor %}
-            </ul>
+            
+            {% for questao in latest_question_list %}
+                <a style="text-decoration: none;" href="{% url 'votacao:detalhe' questao.id %}">
+                    {{ questao.questao_texto }}
+                </a>                           
+                <br>    
+                <br> 
+            {% endfor %}
+
         {% else %}
             <p>Nao ha questoes disponiveis.</p>
         {% endif %}
-        <a href="{% url 'votacao:criarquestao' %}">Criar nova Questão</a>
-
+        {% if user.is_staff %}
+        <button><a style="text-decoration: none;" href="{% url 'votacao:criarquestao' %}">Criar nova Questão</a></button>
+        {% endif %}
     {% else %}
         <section class="welcome">
             <h1>Bem Vindo!</h1>
-            <button class="login"><a href="{% url 'votacao:loginiscte' %}">Login</a></button>
-            <button class="register"><a href="{% url 'votacao:registar' %}">Register</a></button>
+            <button><a href="{% url 'votacao:loginiscte' %}">Login</a></button>
+            <button><a href="{% url 'votacao:registar' %}">Register</a></button>
         </section>
     {% endif %}
     

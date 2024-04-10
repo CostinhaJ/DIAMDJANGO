@@ -58,7 +58,7 @@ def criarquestao(request):
     if request.method == 'POST':
         texto = request.POST['textonovaquestao']
         Questao(questao_texto=texto, pub_data=timezone.now()).save()
-        return render(request, ('votacao/index.html'))
+        return HttpResponseRedirect(reverse('votacao:index'))
     else:
         return render(request, 'votacao/criarquestao.html')
 

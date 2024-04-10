@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-
 }
 
 body {
@@ -20,8 +19,61 @@ header {
 }
 
 main {
+  align-self: center;
   text-align: center;
-  margin-top: 20%;
+  align-items: center;
+}
+
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  margin-top: 0;
+  margin-bottom: -0.625em;
+  padding-bottom: 0.3125em;
+  height: 6.25em;
+  color: white;
+  background-color: #001cba;
+  justify-content: center;
+  display: flex;
+  padding: 0em;
+}
+
+section{ 
+    margin-left: 2em;
+    width: 100%; 
+    justify-content: center;
+}
+
+button {
+  margin: 1em;
+  background-color: white;
+  color: black;
+  padding: 1em;
+  border-radius: 0.25em;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button:hover {
+  background-color: whitesmoke;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav a {
+  color: white;
+  text-align: center;
+  padding: 0.875em 1em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .topnav{
@@ -49,75 +101,21 @@ main {
   flex-grow: 1; /* Takes up remaining space */
 }
 
-nav a {
-  color: white;
-  text-align: center;
-  padding: 0.875em 1em;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border-radius: 50%;
-}
-
-nav a:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
 .active {
   background-color: rgba(255, 255, 255, 0.4);
-}
-
-
-
-button {
-  margin: 1em;
-  background-color: white;
-  color: black;
-  padding: 1em;
-  border-radius: 0.25em;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-button:hover {
-  background-color: red;
-}
-
-.welcome{
-  text-align: center;
-  margin-top: 20%;
-}
-
-.welcome a{
-  text-decoration: none;
-  color: black;
-}
-
-.welcome button:hover{
-  background-color: whitesmoke;
-}
-
-footer {
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  margin-top: 0;
-  margin-bottom: -0.625em;
-  padding-bottom: 0.3125em;
-  height: 6.25em;
-  color: white;
-  background-color: #001cba;
-  justify-content: center;
-  display: flex;
-  padding: 0em;
-}
-
-section{ 
-    margin-left: 2em;
-    width: 100%; 
-    justify-content: center;
 }
 
 .logo {
   width: 10.625em;
   height: auto;
+}
+
+.submitbtn{
+  background-color: white;
+  border: none; 
+  box-shadow: none;
+}
+
+.submitbtn:hover{
+  background-color: whitesmoke;
 }

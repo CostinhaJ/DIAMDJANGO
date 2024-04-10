@@ -1,5 +1,5 @@
 {% extends "votacao/base.html" %}
-
+{% load static %}
 {% block title %}
     Criar Opcao
 {% endblock %}
@@ -16,7 +16,7 @@
         <label for="password">Password:</label>
         <input type="password" name="password" id="password"> <br>
         <label for="curso">Curso:</label>
-        <input type="text" name="curso" id="curso"> <br>
-        <input type="submit" value="Registar" />
+        <input type="text" name="curso" id="curso"> <br><br>
+        <button><input type="submit" value="Registar" class="submitbtn" /></button>
     </form>
 {% endblock %}
