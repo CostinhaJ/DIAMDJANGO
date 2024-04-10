@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <form action="{% url 'votacao:criarquestao2' %}" method="post">
+    <form action="{% url 'votacao:criarquestao' %}" method="post">
         {% csrf_token %}
         <label for="textonovaquestao">Texto da nova Questão:</label>
         <input type="text" id="textonovaquestao" name="textonovaquestao"><br>

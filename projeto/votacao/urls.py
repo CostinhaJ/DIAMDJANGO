@@ -4,8 +4,6 @@ from . import views # (. significa que importa views da mesma directoria)
 app_name = 'votacao'
 urlpatterns = [
     # ex: votacao/
-    path("", views.welcome, name='welcome'),
-
     path("", views.index, name='index'),
     # ex: votacao/1
     path('<int:questao_id>', views.detalhe, name='detalhe'),
@@ -15,12 +13,8 @@ urlpatterns = [
     path('<int:questao_id>/voto', views.voto, name='voto'),
     # ex: votacao/criarquestao
     path('criarquestao', views.criarquestao, name='criarquestao'),
-    # ex: votacao/criarquestao2
-    path('criarquestao2', views.criarquestao2, name='criarquestao2'),
     # ex: votacao/2/criaropcao
     path('<int:questao_id>/criaropcao', views.criaropcao, name='criaropcao'),
-    # ex: votacao/2/criaropcao2
-    path('<int:questao_id>/criaropcao2', views.criaropcao2, name='criaropcao2'),
     # ex: votacao/6/apagarquestao
     path('<int:questao_id>/apagarquestao', views.apagarquestao, name='apagarquestao'),
     # ex: votacao/6/apagaropcao

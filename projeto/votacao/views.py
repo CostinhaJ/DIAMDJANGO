@@ -10,9 +10,6 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
-def welcome(request):
-    return render(request, 'votacao/welcome.html')
-
 def index(request):
     latest_question_list = Questao.objects.order_by('-pub_data')[:5]
     if request.user.is_authenticated:
@@ -58,24 +55,23 @@ def voto(request, questao_id):
     return HttpResponseRedirect(reverse('votacao:resultados', args=(questao.id,)))
 
 def criarquestao(request):
-    
-    return render(request, 'votacao/criarquestao.html')
-
-def criarquestao2(request):
-    texto = request.POST['textonovaquestao']
-    Questao(questao_texto=texto, pub_data=timezone.now()).save()
-    return render(request, ('votacao/index.html'))
+    if request.method == 'POST':
+        texto = request.POST['textonovaquestao']
+        Questao(questao_texto=texto, pub_data=timezone.now()).save()
+        return render(request, ('votacao/index.html'))
+    else:
+        return render(request, 'votacao/criarquestao.html')
 
 def criaropcao(request, questao_id):
-    questao = get_object_or_404(Questao, pk=questao_id)
-    return render(request, 'votacao/criaropcao.html', {'questao': questao})
-
-def criaropcao2(request, questao_id):
-    questao = get_object_or_404(Questao, pk=questao_id)
-    texto = request.POST['textonovaopcao']
-    questao.opcao_set.create(opcao_texto = texto, votos = 0)
-    return HttpResponseRedirect(reverse('votacao:detalhe', args=(questao.id,)))
-
+    if request.method == 'POST':
+        questao = get_object_or_404(Questao, pk=questao_id)
+        texto = request.POST['textonovaopcao']
+        questao.opcao_set.create(opcao_texto = texto, votos = 0)
+        return HttpResponseRedirect(reverse('votacao:detalhe', args=(questao.id,)))
+    else:
+        questao = get_object_or_404(Questao, pk=questao_id)
+        return render(request, 'votacao/criaropcao.html', {'questao': questao})
+    
 def apagarquestao(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     questao.delete()
@@ -100,7 +96,7 @@ def loginiscte(request):
         user = authenticate(username=usernameP, password=passwordP)
         if user is not None:
             login(request, user)
-            return render(request, ('votacao/index.html'))
+            return HttpResponseRedirect(reverse('votacao:index'))
         else:
             return render(request, 'votacao/loginiscte.html', {'error_message': "Dados inválidos", })
     else:
@@ -131,4 +127,4 @@ from django.contrib.auth import logout
 
 def logoutiscte(request):
     logout(request)
-    return HttpResponseRedirect(reverse('votacao:welcome'))
+    return HttpResponseRedirect(reverse('votacao:index'))
