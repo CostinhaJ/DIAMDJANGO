@@ -27,4 +27,6 @@ urlpatterns = [
     path('pessoal', views.pessoal, name='pessoal'),
     # ex: votacao/logoutiscte
     path('logoutiscte', views.logoutiscte, name='logoutiscte'),
+    #
+    path('fazer_upload', views.fazer_upload, name='fazer_upload'),
 ]
