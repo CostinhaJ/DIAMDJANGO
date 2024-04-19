@@ -28,3 +28,4 @@ class Aluno(models.Model):
  curso = models.CharField(max_length=100)
  votosFeitos = models.IntegerField(default=0)
  grupo = models.CharField(max_length=20, default=0)
+ fotoPerfil = models.TextField(default="userdefault.png")

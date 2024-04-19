@@ -1,7 +1,7 @@
 {% extends "votacao/base.html" %}
 
 {% block title %}
-    Criar Opcao
+    Pessoal
 {% endblock %}
 
 {% block main %}
@@ -11,7 +11,11 @@
     Email: {{ user.email }} <br>
     Curso: {{ user.aluno.curso }} <br>
     Grupo: {{ user.aluno.grupo }} <br>
-    votos: {{ user.aluno.votosFeitos }}
+    votos: {{ user.aluno.votosFeitos }} <br>
+
+    <a href="{% url 'votacao:fazer_upload' %}">
+        Fazer Upload de Imagem
+    </a> <br>
 
     <a href="{% url 'votacao:index' %}">
         Voltar
