@@ -25,7 +25,7 @@
                     </li>
                     <li class="centered">
                         {{ user.username }}
-                        <img src="{% static 'votacao/media/'{{ user.aluno.fotoPerfil}} %}"> <br>
+                        <img src="{% static 'votacao/media/{{user.aluno.fotoPerfil}}' %}"> <br>
                         Votos: {{ user.aluno.votosFeitos }}
                     </li>
                     <li class="right">
