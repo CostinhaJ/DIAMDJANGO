@@ -1,7 +1,3 @@
-const selectElement = function (element) {
-    return document.querySelector(element);
-};
-
 let imgperfil = document.querySelector('#imgperfil');
 let username = document.querySelector('#username');
 let count = 0;

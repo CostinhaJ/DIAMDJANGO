@@ -6,20 +6,39 @@
 
 {% block main %}
     {% if user.is_authenticated %}
-        <h1>Questões:</h1>
-        {% if latest_question_list %}
-            
-            {% for questao in latest_question_list %}
-                <a style="text-decoration: none;" href="{% url 'votacao:detalhe' questao.id %}">
-                    {{ questao.questao_texto }}
-                </a>                           
-                <br>    
-                <br> 
-            {% endfor %}
+        <h1>Questões:</h1> 
+        {% if latest_question_list %} 
+        <button id="botao">Mostrar lista de Questões</button> 
+            <br>
+            <div id="lista" style="display: none;"> 
+               
+                {% for questao in latest_question_list %} 
+                    <a style="text-decoration: none;" href="{% url 'votacao:detalhe' questao.id %}">{{ questao.questao_texto }}</a>
+                    <br>
+                    <br> 
+                {% endfor %} 
+               <script>
+                
+                    let botao = document.getElementById('botao'); 
+                    let lista = document.getElementById('lista');
 
-        {% else %}
-            <p>Nao ha questoes disponiveis.</p>
-        {% endif %}
+                    botao.addEventListener('click', function() {
+                        var isActive = lista.classList.contains("active");
+                        lista.classList.remove("active");
+                        lista.style.display = "none";
+                        botao.innerHTML='Mostrar Questoes'
+
+                        if (!isActive) {
+                        lista.classList.toggle("active");
+                        lista.style.display = "block";
+                        botao.innerHTML='Esconder Questoes'
+                        }
+                    });
+               </script>
+            </div> 
+        {% else %} 
+            <p>Não ha questões disponíveis.</p> 
+        {% endif %} 
         {% if user.is_staff %}
         <button><a style="text-decoration: none;" href="{% url 'votacao:criarquestao' %}">Criar nova Questão</a></button>
         {% endif %}

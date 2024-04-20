@@ -119,3 +119,7 @@ nav a:hover {
 .submitbtn:hover{
   background-color: whitesmoke;
 }
+
+.inactive{
+  display: none;
+}
