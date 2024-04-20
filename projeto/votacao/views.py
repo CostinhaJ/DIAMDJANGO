@@ -11,7 +11,9 @@ from .models import Questao, Opcao, Aluno
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required, permission_required
 
+@login_required(login_url='votacao:loginiscte')
 def index(request):
     latest_question_list = Questao.objects.order_by('-pub_data')[:5]
     if request.user.is_authenticated:
@@ -26,6 +28,8 @@ def index(request):
         }
     return render(request, 'votacao/index.html', context)
 
+
+@login_required(login_url='votacao:loginiscte')
 def detalhe(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     if request.user.is_authenticated:
@@ -34,10 +38,14 @@ def detalhe(request, questao_id):
         user = "anonimo"
     return render(request, 'votacao/detalhe.html', {'questao': questao, 'user': user})
 
+
+@login_required(login_url='votacao:loginiscte')
 def resultados(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     return render(request, 'votacao/resultados.html', {'questao': questao})
 
+
+@login_required(login_url='votacao:loginiscte')
 def voto(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     try:
@@ -56,6 +64,7 @@ def voto(request, questao_id):
         # os dados de serem tratados repetidamente se o utilizador voltar para a página web anterior.
     return HttpResponseRedirect(reverse('votacao:resultados', args=(questao.id,)))
 
+@permission_required('auth.view_user')
 def criarquestao(request):
     if request.method == 'POST':
         texto = request.POST['textonovaquestao']
@@ -64,6 +73,7 @@ def criarquestao(request):
     else:
         return render(request, 'votacao/criarquestao.html')
 
+@permission_required('auth.view_user')
 def criaropcao(request, questao_id):
     if request.method == 'POST':
         questao = get_object_or_404(Questao, pk=questao_id)
@@ -73,12 +83,14 @@ def criaropcao(request, questao_id):
     else:
         questao = get_object_or_404(Questao, pk=questao_id)
         return render(request, 'votacao/criaropcao.html', {'questao': questao})
-    
+
+@permission_required('auth.view_user')
 def apagarquestao(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     questao.delete()
     return HttpResponseRedirect(reverse('votacao:index'))
 
+@permission_required('auth.view_user')
 def apagaropcao(request, questao_id):
     questao = get_object_or_404(Questao, pk=questao_id)
     try:
@@ -118,7 +130,8 @@ def registar(request):
         return HttpResponseRedirect(reverse('votacao:loginiscte'))
     else:
         return render(request, 'votacao/registar.html')
-    
+
+@login_required(login_url='votacao:loginiscte')
 def pessoal(request):
     context = {
         'user': request.user,
@@ -127,10 +140,14 @@ def pessoal(request):
 
 from django.contrib.auth import logout
 
+
+@login_required(login_url='votacao:loginiscte')
 def logoutiscte(request):
     logout(request)
     return HttpResponseRedirect(reverse('votacao:index'))
 
+
+@login_required(login_url='votacao:loginiscte')
 def fazer_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
