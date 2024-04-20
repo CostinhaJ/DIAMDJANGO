@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>       
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'votacao/styles/styles.css' %}">
         <nav class="topnav">
             {% if user.is_authenticated %}
                 <ul>
@@ -24,9 +24,9 @@
                         </li>
                     </li>
                     <li class="centered">
-                        {{ user.username }}
+                        <h3 id="username">{{ user.username }}</h3>                
+                        <img src="{% static 'votacao/media/' %}{{ user.aluno.fotoPerfil }}" alt="foto perfil" style="width: 5em;" id="imgperfil"> <br>
                         <br>
-                        <img src="{% static 'votacao/media/' %}{{ user.aluno.fotoPerfil }}" alt="foto perfil" style="width: 5em;"> <br>
                         Votos: {{ user.aluno.votosFeitos }}
                     </li>
                     <li class="right">
@@ -73,6 +73,7 @@
           <p>Email:&nbsp<a href="mailto:geral@iscte.ot"><strong>geral@iscte.pt</strong></a></p>
       </section> 
   </footer>
+  <script src="{% static 'votacao/scripts/script.js' %}"></script>
 </body>
 </html>
 
