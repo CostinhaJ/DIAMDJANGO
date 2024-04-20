@@ -5,18 +5,40 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Registar</h1>
-
-    <form action="{% url 'votacao:registar' %}" method="post">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username"> <br>
-        <label for="email">e-mail:</label>
-        <input type="text" name="email" id="email"> <br>
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password"> <br>
-        <label for="curso">Curso:</label>
-        <input type="text" name="curso" id="curso"> <br><br>
-        <button><input type="submit" value="Registar" class="submitbtn" /></button>
-    </form>
+<h1>Registar</h1> 
+    <form action="{% url 'votacao:registar' %}" method="post"> 
+        {% csrf_token %} 
+        <label for="username">Username:</label> 
+        <input type="text" name="username" id="username">
+        <br> 
+        <label for="email">e-mail:</label> 
+        <input type="text" name="email" id="email"> 
+        <br>
+        <label for="password">Password:</label> 
+        <input type="password" name="password" id="password">
+        <br> 
+        <label for="curso">Curso:</label> 
+        <input type="text" name="curso" id="curso"> 
+        <br><br> 
+        <label for="comentario">Comentário:</label>
+        <input type="text" name="comentario" id="comentario"> 
+        <button type="button" onclick="validarComentario()">Validar comentário</button> 
+        <p id="mensagem"></p> 
+        <br> 
+        <button><input type="submit" value="Registar" class="submitbtn" /></button> 
+    </form> 
+    <script> 
+        function validarComentario() { 
+            var insultos = ["abécula", "abentesma", "achavascado", "alimária", "andrajoso", "barregã", "biltre","cacóstomo", "cuarra","Estólido", "estroso","estultilóquio", "nefelibata", "néscio", "pechenga", "sevandija", "somítico", "tatibitate", "xexé", "cheché", "xexelento",];
+            var comentario = document.getElementById("comentario").value; 
+            var palavras = comentario.split(" "); 
+            for (var i = 0; i < palavras.length; i++) { 
+                if (insultos.includes(palavras[i].toLowerCase())) { 
+                    document.getElementById("comentario").value = ""; 
+                    document.getElementById("mensagem").innerText = "Comentário não aceite"; 
+                return; 
+                } 
+            } 
+            document.getElementById("mensagem").innerText = "Comentário aceite"; } 
+    </script>
 {% endblock %}
