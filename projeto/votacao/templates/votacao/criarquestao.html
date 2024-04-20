@@ -1,4 +1,5 @@
 {% extends "votacao/base.html" %}
+{% load static %}
 
 {% block title %}
     Criar Opcao
@@ -15,4 +16,8 @@
     </form> 
 </section>
     
+{% endblock %}
+
+{% block importscript %}
+  <script src="{% static 'votacao/scripts/script.js' %}"></script>
 {% endblock %}

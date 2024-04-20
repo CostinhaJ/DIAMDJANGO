@@ -1,4 +1,5 @@
 {% extends "votacao/base.html" %}
+{% load static %}
 
 {% block title %}
     Criar Opcao
@@ -16,4 +17,8 @@
 
     <a href="{% url 'votacao:detalhe' questao.id %}">Votar novamente?</a> <br>
     <a href="{% url 'votacao:index' %}">Voltar</a>
+{% endblock %}
+
+{% block importscript %}
+  <script src="{% static 'votacao/scripts/script.js' %}"></script>
 {% endblock %}

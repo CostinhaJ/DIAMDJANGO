@@ -1,4 +1,5 @@
 {% extends "votacao/base.html" %}
+{% load static %}
 
 {% block title %}
     Criar Opcao
@@ -14,4 +15,8 @@
         <br>
         <input type="submit" value="Gravar nova Opção">
     </form>
+{% endblock %}
+
+{% block importscript %}
+  <script src="{% static 'votacao/scripts/script.js' %}"></script>
 {% endblock %}

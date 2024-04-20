@@ -25,7 +25,7 @@
                     </li>
                     <li class="centered">
                         <h3 id="username">{{ user.username }}</h3>                
-                        <img src="{% static 'votacao/media/' %}{{ user.aluno.fotoPerfil }}" alt="foto perfil" style="width: 5em;" id="imgperfil"> <br>
+                            <img src="{% static 'votacao/media/' %}{{ user.aluno.fotoPerfil }}" alt="foto perfil" style="width: 5em;" id="imgperfil"> <br>
                         <br>
                         Votos: {{ user.aluno.votosFeitos }}
                     </li>
@@ -73,7 +73,9 @@
           <p>Email:&nbsp<a href="mailto:geral@iscte.ot"><strong>geral@iscte.pt</strong></a></p>
       </section> 
   </footer>
-  <script src="{% static 'votacao/scripts/script.js' %}"></script>
+{% block importscript %}
+  
+{% endblock %}
 </body>
 </html>
 

@@ -1,12 +1,14 @@
 {% extends "votacao/base.html" %}
 {% load static %}
+
 {% block title %}
     Criar Opcao
 {% endblock %}
 
 {% block main %}
 <h1>Registar</h1> 
-    <form action="{% url 'votacao:registar' %}" method="post"> 
+<section>
+     <form action="{% url 'votacao:registar' %}" method="post"> 
         {% csrf_token %} 
         <label for="username">Username:</label> 
         <input type="text" name="username" id="username">
@@ -41,4 +43,5 @@
             } 
             document.getElementById("mensagem").innerText = "Comentário aceite"; } 
     </script>
+</section>
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends "votacao/base.html" %}
+{% load static %}
 
 {% block title %}
     Login
@@ -17,7 +18,7 @@
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required><br>
             <button><input class="submitbtn" type="submit" value="Entrar" /></button>
-            <a href="{% url 'votacao:registar' %}"><button>Registar</button></a>
+            <button><a style="text-decoration: none;" href="{% url 'votacao:registar' %}">Registar</a></button>
         </form>
     </section>
 {% endblock %}
